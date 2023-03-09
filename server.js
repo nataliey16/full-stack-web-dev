@@ -9,6 +9,7 @@ const app = express(); //get app function by calling express function
 const expressLayouts = require("express-ejs-layouts"); // get express layouts package
 
 const indexRouter = require("./routes/index"); //import the new index.js file we made in relative file ./
+const authorRouter = require("./routes/authors"); //import the new index.js file we made in relative file ./
 
 //Below: Configure Express Application
 //STEP 2
@@ -26,5 +27,6 @@ db.on("error", (error) => console.error(error)); //if we run into an error, this
 db.once("open", () => console.log("Connected to Mongoose")); // If it connects for the firsttime when we open database, it will tell us connected to mongoose
 
 app.use("/", indexRouter); // Now we can use what we imported, but youll notice it crashes bc we haven't exported the index.js
+app.use("/authors", authorRouter); // Now we can use what we imported, but youll notice it crashes bc we haven't exported the index.js
 
 app.listen(process.env.PORT || 3000); // Tell app we want to listen to a specific Port = pulls from an enviornment variable for when we deploy. The server will tell us what port it is listening to. For now we are going to default to port 3000 since the server isnt telling us anyone from hosting platform
