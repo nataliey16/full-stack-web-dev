@@ -3,10 +3,11 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config(); //If this is the case (not in production mode/development enviornment), we want to parse the differenet dependencies
 }
 
-//STEP 1
+//STEP 1: importing
 const express = require("express"); //import express in express library
 const app = express(); //get app function by calling express function
 const expressLayouts = require("express-ejs-layouts"); // get express layouts package
+const bodyParser = require("body-parser");
 
 const indexRouter = require("./routes/index"); //import the new index.js file we made in relative file ./
 const authorRouter = require("./routes/authors"); //import the new index.js file we made in relative file ./
@@ -18,6 +19,7 @@ app.set("views", __dirname + "/views"); // set where our views are coming from -
 app.set("layout", "layouts/layout"); // set up layout folder/file so every single file will be put in this file - thus, won't need to duplicate the header and footer HTML
 app.use(expressLayouts); //Tell express app that we want to use Express layouts from above
 app.use(express.static("public")); //Tell express where our public files (html,css, js, imgs...) are located -
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: "false" }));
 
 const mongoose = require("mongoose"); // import mongoose
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }); //connect mongoose to our local server (later web server once web is deployed)
